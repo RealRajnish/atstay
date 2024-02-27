@@ -11,7 +11,7 @@ import PropertyList from "./pages/PropertyList";
 import ReservationList from "./pages/ReservationList";
 import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/SearchPage";
-import { productData } from "./temp/productData";
+
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/create-listing" element={<CreateListing />} />
-          <Route path="/properties/:listingId" element={<ListingDetails {...productData}/>} />
+          <Route path="/properties/:listingId" element={<ListingDetails />} />
           <Route path="/properties/category/:category" element={<CategoryPage />} />
           <Route path="/properties/search/:search" element={<SearchPage />} />
           <Route path="/:userId/trips" element={<TripList />} />

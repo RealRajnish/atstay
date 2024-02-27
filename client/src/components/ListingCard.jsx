@@ -23,7 +23,6 @@ const ListingCard = ({
   endDate,
   totalPrice,
   booking,
-  photo,
 }) => {
   /* SLIDER FOR IMAGES */
   const [currentIndex, setCurrentIndex] = useState(0);

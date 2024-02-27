@@ -127,7 +127,7 @@ const LowerNavbar = () => {
           <div className="carousel-1">
             <div className="img-container">
               <img
-                className="d-block-1 mycard-1"
+                className="d-block-1 mycard-1 "
                 src={lake}
                 alt="First slide"
                 // onClick={() => handleProductClick2(3)}

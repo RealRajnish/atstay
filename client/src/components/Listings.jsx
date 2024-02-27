@@ -5,9 +5,6 @@ import ListingCard from "./ListingCard";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setListings } from "../redux/state";
-import { productData } from "../temp/productData";
-
-
 
 const Listings = () => {
   const dispatch = useDispatch();
@@ -19,7 +16,16 @@ const Listings = () => {
 
   const getFeedListings = async () => {
     try {
-      const data = productData
+      const response = await fetch(
+        selectedCategory !== "All"
+          ? `http://localhost:3001/properties?category=${selectedCategory}`
+          : "http://localhost:3001/properties",
+        {
+          method: "GET",
+        }
+      );
+
+      const data = await response.json();
       dispatch(setListings({ listings: data }));
       setLoading(false);
     } catch (err) {
@@ -53,19 +59,25 @@ const Listings = () => {
           {listings.map(
             ({
               _id,
-              photo,
-              place,
-              trip,
-              overview,
+              creator,
+              listingPhotoPaths,
+              city,
+              province,
+              country,
+              category,
+              type,
               price,
               booking=false
             }) => (
               <ListingCard
                 listingId={_id}
-                photo={photo}
-                city={place}
-                category={trip}
-                type={overview}
+                creator={creator}
+                listingPhotoPaths={listingPhotoPaths}
+                city={city}
+                province={province}
+                country={country}
+                category={category}
+                type={type}
                 price={price}
                 booking={booking}
               />

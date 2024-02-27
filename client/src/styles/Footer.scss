@@ -7,6 +7,7 @@
   align-items: center;
   gap: 50px;
   padding: 10px 70px;
+  background-color: #d0eeea;
 
   @include lg {
     padding: 10px 30px;
@@ -29,7 +30,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: $pinkred;
+        background-color: #7ee4d7;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,7 +53,7 @@
       cursor: pointer;
 
       li:hover {
-        color: $pinkred
+        color: #333232;
       }
 
       a {
@@ -60,7 +61,7 @@
         color: black;
 
         &:hover {
-          color: $pinkred;
+          color: #333232;
         }
       }
     }

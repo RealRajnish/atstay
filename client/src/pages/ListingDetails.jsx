@@ -66,6 +66,7 @@ const ListingDetails = () => {
 
   const handleSubmit = async () => {
     try {
+      console.log(listing)
       const bookingForm = {
         customerId,
         listingId,

@@ -98,11 +98,11 @@ a{
     width: 100%;
     padding: 8px 15px;
     text-decoration: none;
-    color: blue;
+    color: black;
     font-weight: 700;
   }
   .navbar_right_accountmenu a:hover {
-    color: pink;
+    color: #67c7b9;
     background-color: rgba(217, 213, 213, 0.2);
   }
 

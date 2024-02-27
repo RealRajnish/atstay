@@ -23,6 +23,11 @@
     place-content: center;
   }
 
+  .product-carousel-1 .pre-btn-1,
+  .product-carousel-1 .next-btn-1 {
+    cursor: pointer;
+  }
+  
   #carousel-prod-container {
     width: 100%;
     gap: 0;
@@ -43,7 +48,11 @@
     /* display: flex;
     flex-direction: column; */
   }
-
+  #carousel-prod-container .carousel-1:hover{
+    cursor: pointer;
+    color: #67c7b9;
+    font-weight: bold;
+  }
   #carousel-prod-container .carousel-1 .img-container {
     height: 70%;
     display: flex;
@@ -51,8 +60,13 @@
     padding: 10px;
     /* align-items: center; */
   }
+
   #carousel-prod-container .carousel-1 .img-container img {
     height: 100%;
+  }
+  #carousel-prod-container .carousel-1 .img-container img:hover{
+    border: 1px solid white;
+   cursor: pointer;
   }
   #carousel-prod-container .carousel-1 .text-container {
     height: 30%;
@@ -61,6 +75,12 @@
   #carousel-prod-container .carousel-1 .text-container p {
     text-wrap: nowrap;
     text-align: center;
+  }
+
+  #carousel-prod-container .carousel-1 .text-container p:hover{
+    cursor: pointer;
+    color: #67c7b9;
+    font-weight: bold;
   }
 
   
