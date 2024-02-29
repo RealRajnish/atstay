@@ -6,11 +6,12 @@ import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
 import variables from "../styles/variables.scss";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { IoIosImages } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
+import { API_4 } from "../api/api";
 
 const CreateListing = () => {
   const [category, setCategory] = useState("");
@@ -19,7 +20,7 @@ const CreateListing = () => {
   /* LOCATION */
   const [formLocation, setFormLocation] = useState({
     streetAddress: "",
-    aptSuite: "",
+    // aptSuite: "",
     city: "",
     province: "",
     country: "",
@@ -38,6 +39,19 @@ const CreateListing = () => {
   const [bedroomCount, setBedroomCount] = useState(1);
   const [bedCount, setBedCount] = useState(1);
   const [bathroomCount, setBathroomCount] = useState(1);
+
+  // selecting room types
+  const [singleRoom, setSingleRoom] = useState(0);
+  const [doubleRoom, setDoubleRoom] = useState(0);
+  const [DeluxRoom, setDeluxRoom] = useState(0);
+  // const handleChange = (index, event) => {
+  //   const { name, value } = event.target;
+  //   setRoomTypes((prevRooms) => {
+  //     const updatedRooms = [...prevRooms];
+  //     updatedRooms[index][name] = value;
+  //     return updatedRooms;
+  //   });
+  // };
 
   /* AMENITIES */
   const [amenities, setAmenities] = useState([]);
@@ -93,7 +107,7 @@ const CreateListing = () => {
     });
   };
 
-  const creatorId = useSelector((state) => state.user._id);
+  const creatorId = useSelector((state) => state.host._id);
 
   const navigate = useNavigate();
 
@@ -103,19 +117,20 @@ const CreateListing = () => {
     try {
       /* Create a new FormData onject to handle file uploads */
       const listingForm = new FormData();
-      listingForm.append("creator", creatorId);
+      listingForm.append("hostId", creatorId);
       listingForm.append("category", category);
       listingForm.append("type", type);
       listingForm.append("streetAddress", formLocation.streetAddress);
-      listingForm.append("aptSuite", formLocation.aptSuite);
+      // listingForm.append("aptSuite", formLocation.aptSuite);
       listingForm.append("city", formLocation.city);
       listingForm.append("province", formLocation.province);
       listingForm.append("country", formLocation.country);
-      listingForm.append("guestCount", guestCount);
-      listingForm.append("bedroomCount", bedroomCount);
-      listingForm.append("bedCount", bedCount);
-      listingForm.append("bathroomCount", bathroomCount);
+      // listingForm.append("guestCount", guestCount);
+      // listingForm.append("bedroomCount", bedroomCount);
+      // listingForm.append("bedCount", bedCount);
+      // listingForm.append("bathroomCount", bathroomCount);
       listingForm.append("amenities", amenities);
+      // listingForm.append("rooms", roomTypes);
       listingForm.append("title", formDescription.title);
       listingForm.append("description", formDescription.description);
       listingForm.append("highlight", formDescription.highlight);
@@ -126,9 +141,10 @@ const CreateListing = () => {
       photos.forEach((photo) => {
         listingForm.append("listingPhotos", photo);
       });
-
+      console.log("formLocation", formLocation);
+      console.log("listingForm", listingForm);
       /* Send a POST request to server */
-      const response = await fetch("http://localhost:3001/properties/create", {
+      const response = await fetch(API_4, {
         method: "POST",
         body: listingForm,
       });
@@ -140,13 +156,60 @@ const CreateListing = () => {
       console.log("Publish Listing failed", err.message);
     }
   };
+
+  // temporary function for testing frontend side
+  const tempFunc = async (e) => {
+    e.preventDefault();
+    try {
+      const listingForm = new FormData();
+      listingForm.append("hostId", creatorId);
+      listingForm.append("category", category);
+      listingForm.append("type", type);
+      listingForm.append("streetAddress", formLocation.streetAddress);
+      listingForm.append("city", formLocation.city);
+      listingForm.append("province", formLocation.province);
+      listingForm.append("country", formLocation.country);
+      listingForm.append("amenities", amenities);
+      listingForm.append("title", formDescription.title);
+      listingForm.append("description", formDescription.description);
+      listingForm.append("highlight", formDescription.highlight);
+      listingForm.append("highlightDesc", formDescription.highlightDesc);
+      // listingForm.append("rooms", roomTypes);
+      listingForm.append("price", formDescription.price);
+      listingForm.append("guestCount", guestCount);
+      listingForm.append("bedroomCount", bedroomCount);
+      listingForm.append("bedCount", bedCount);
+      listingForm.append("bathroomCount", bathroomCount);
+      listingForm.append("singleRoom", singleRoom);
+      listingForm.append("doubleRoom", doubleRoom);
+      listingForm.append("deluxRoom", DeluxRoom);
+      photos.forEach((photo) => {
+        listingForm.append("listingPhotos", photo);
+      });
+
+      for (const [key, value] of listingForm.entries()) {
+        console.log(key + ": " + value);
+      }
+      // console.log("rooms", roomTypes);
+
+      const response = await fetch(API_4, {
+        method: "POST",
+        body: listingForm,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <Navbar />
-
       <div className="create-listing">
         <h1>Publish Your Place</h1>
-        <form onSubmit={handlePost}>
+        <form
+          // onSubmit={handlePost}
+          onSubmit={tempFunc}
+        >
           <div className="create-listing_step1">
             <h2>Step 1: Tell us about your place</h2>
             <hr />
@@ -199,7 +262,7 @@ const CreateListing = () => {
             </div>
 
             <div className="half">
-              <div className="location">
+              {/* <div className="location">
                 <p>Apartment, Suite, etc. (if applicable)</p>
                 <input
                   type="text"
@@ -209,7 +272,7 @@ const CreateListing = () => {
                   onChange={handleChangeLocation}
                   required
                 />
-              </div>
+              </div> */}
               <div className="location">
                 <p>City</p>
                 <input
@@ -248,14 +311,19 @@ const CreateListing = () => {
               </div>
             </div>
 
-            <h3>Share some basics about your place</h3>
-            <div className="basics">
+            <h3 style={{ display: type === "Rooms" ? "none" : "" }}>
+              Share some basics about your place
+            </h3>
+            <div
+              className="basics"
+              style={{ display: type === "Rooms" ? "none" : "" }}
+            >
               <div className="basic">
                 <p>Guests</p>
                 <div className="basic_count">
                   <RemoveCircleOutline
                     onClick={() => {
-                      guestCount > 1 && setGuestCount(guestCount - 1);
+                      guestCount > 1 && setGuestCount(parseInt(guestCount) - 1);
                     }}
                     sx={{
                       fontSize: "25px",
@@ -263,10 +331,17 @@ const CreateListing = () => {
                       "&:hover": { color: variables.pinkred },
                     }}
                   />
-                  <p>{guestCount}</p>
+
+                  <input
+                    type="number"
+                    value={guestCount}
+                    width={5}
+                    onChange={(e) => setGuestCount(e.target.value)}
+                  />
+                  {/* <p>{guestCount}</p> */}
                   <AddCircleOutline
                     onClick={() => {
-                      setGuestCount(guestCount + 1);
+                      setGuestCount(parseInt(guestCount) + 1);
                     }}
                     sx={{
                       fontSize: "25px",
@@ -479,6 +554,7 @@ const CreateListing = () => {
                 value={formDescription.description}
                 onChange={handleChangeDescription}
                 required
+                style={{ resize: "none" }}
               />
               <p>Highlight</p>
               <input
@@ -497,18 +573,95 @@ const CreateListing = () => {
                 value={formDescription.highlightDesc}
                 onChange={handleChangeDescription}
                 required
+                style={{ resize: "none" }}
               />
-              <p>Now, set your PRICE</p>
-              <span>$</span>
-              <input
-                type="number"
-                placeholder="100"
-                name="price"
-                value={formDescription.price}
-                onChange={handleChangeDescription}
-                className="price"
-                required
-              />
+
+              <div>
+                <div
+                  className="roomPrices"
+                  style={{ display: type === "An entire place" ? "none" : "" }}
+                >
+                  <p>Select Rooms with Price</p>
+                  <div className="rooms">
+                    <label htmlFor="single">Single</label>
+                    <input
+                      type="number"
+                      placeholder="Enter per night price"
+                      name="price"
+                      className="price"
+                      id="single"
+                      value={singleRoom}
+                      onChange={(e) => setSingleRoom(e.target.value)}
+                    />
+                  </div>
+                  <div className="rooms">
+                    <label htmlFor="double">Double</label>
+                    <input
+                      type="number"
+                      placeholder="Enter per night price"
+                      name="price"
+                      className="price"
+                      id="double"
+                      value={doubleRoom}
+                      onChange={(e) => setDoubleRoom(e.target.value)}
+                    />
+                  </div>
+                  <div className="rooms">
+                    <label htmlFor="Delux">Delux</label>
+                    <input
+                      type="number"
+                      placeholder="Enter per night price"
+                      name="price"
+                      className="price"
+                      id="delux"
+                      value={DeluxRoom}
+                      onChange={(e) => setDeluxRoom(e.target.value)}
+                    />
+                  </div>
+                  {/*  {roomTypes.map((room, index) => (
+                    <div className="rooms" key={index}>
+                      <label htmlFor={room.roomType}>{room.roomType}</label>
+                      <input
+                        type="number"
+                        placeholder="Enter per night price"
+                        name="price"
+                        className="price"
+                        id={room.roomType}
+                        value={room.price}
+                        onChange={(e) => handleChange(index, e)}
+                      />
+                       <button type="button" onClick={() => handleAdd()}>
+                        Add
+                      </button> 
+
+                      {roomTypes.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemove(index)}
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                      ))} */}
+                </div>
+                <div
+                  className="entirePlace"
+                  style={{ display: type === "Rooms" ? "none" : "" }}
+                >
+                  <p>Enter Price</p>
+                  <span>$</span>
+                  <input
+                    type="number"
+                    placeholder="100"
+                    name="price"
+                    value={formDescription.price}
+                    onChange={handleChangeDescription}
+                    className="price"
+                    required
+                  />
+                </div>
+              </div>
             </div>
           </div>
 

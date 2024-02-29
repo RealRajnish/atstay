@@ -9,7 +9,8 @@ import { DateRange } from "react-date-range";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
+import { API_3, API_9 } from "../api/api";
 
 const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
@@ -19,15 +20,13 @@ const ListingDetails = () => {
 
   const getListingDetails = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/properties/${listingId}`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`${API_9}${listingId}`, {
+        method: "GET",
+      });
 
       const data = await response.json();
-      setListing(data);
+      console.log(data[0]);
+      setListing(data[0]);
       setLoading(false);
     } catch (err) {
       console.log("Fetch Listing Details Failed", err.message);
@@ -38,8 +37,7 @@ const ListingDetails = () => {
     getListingDetails();
   }, []);
 
-  console.log(listing)
-
+  console.log(listing);
 
   /* BOOKING CALENDAR */
   const [dateRange, setDateRange] = useState([
@@ -60,9 +58,9 @@ const ListingDetails = () => {
   const dayCount = Math.round(end - start) / (1000 * 60 * 60 * 24); // Calculate the difference in day unit
 
   /* SUBMIT BOOKING */
-  const customerId = useSelector((state) => state?.user?._id)
+  const customerId = useSelector((state) => state?.user?._id);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -73,30 +71,28 @@ const ListingDetails = () => {
         startDate: dateRange[0].startDate.toDateString(),
         endDate: dateRange[0].endDate.toDateString(),
         totalPrice: listing.price * dayCount,
-      }
+      };
 
       const response = await fetch("http://localhost:3001/bookings/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(bookingForm)
-      })
+        body: JSON.stringify(bookingForm),
+      });
 
       if (response.ok) {
-        navigate(`/${customerId}/trips`)
+        navigate(`/${customerId}/trips`);
       }
     } catch (err) {
-      console.log("Submit Booking Failed.", err.message)
+      console.log("Submit Booking Failed.", err.message);
     }
-  }
+  };
 
   return loading ? (
     <Loader />
   ) : (
     <>
-      <Navbar />
-      
       <div className="listing-details">
         <div className="title">
           <h1>{listing.title}</h1>
@@ -106,7 +102,7 @@ const ListingDetails = () => {
         <div className="photos">
           {listing.listingPhotoPaths?.map((item) => (
             <img
-              src={`http://localhost:3001/${item.replace("public", "")}`}
+              src={`${API_3}${item.replace("public", "")}`}
               alt="listing photo"
             />
           ))}
@@ -130,7 +126,9 @@ const ListingDetails = () => {
             )}`}
           />*/}
           <h3>
-            Hosted by {listing.creator ? listing.creator.firstName:"firstname"} {listing.creator ? listing.creator.lastName:"lastNAme"}
+            Hosted by{" "}
+            {listing.creator ? listing.creator.firstName : "firstname"}{" "}
+            {listing.creator ? listing.creator.lastName : "lastNAme"}
           </h3>
         </div>
         <hr />

@@ -5,14 +5,16 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/Navbar.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { setLogout } from "../redux/state";
-import UpperNavbar from "./UpperNavbar";
+import { setHostLogout, setLogout } from "../redux/state";
 import LowerNavbar from "./LowerNavbar";
+import UpperNavbar from "./UpperNavbar";
+import { API_3 } from "../api/api";
 
 const Navbar = () => {
   const [dropdownMenu, setDropdownMenu] = useState(false);
 
   const user = useSelector((state) => state.user);
+  const host = useSelector((state) => state.host);
 
   const dispatch = useDispatch();
 
@@ -70,14 +72,14 @@ const Navbar = () => {
         </div>
 
         <div className="navbar_right">
-          {user ? (
-            <a href="/create-listing" className="host">
+          {host ? (
+            <Link to="/create-listing" className="host">
               Become A Host
-            </a>
+            </Link>
           ) : (
-            <a href="/login" className="host">
+            <Link to="/HostLogin" className="host">
               Become A Host
-            </a>
+            </Link>
           )}
 
           <button
@@ -89,20 +91,18 @@ const Navbar = () => {
               <Person sx={{ color: variables.darkgrey }} />
             ) : (
               <img
-                src={`http://localhost:3001/${user.profileImagePath.replace(
-                  "public",
-                  ""
-                )}`}
+                src={`${API_3}${user.profileImagePath.replace("public", "")}`}
                 alt="profile photo"
                 style={{ objectFit: "cover", borderRadius: "50%" }}
               />
             )}
           </button>
 
-          {dropdownMenu && !user && (
+          {dropdownMenu && !user && !host && (
             <div className="navbar_right_accountmenu">
               <Link to="/login">Log In</Link>
               <Link to="/register">Sign Up</Link>
+              <Link to="/hostLogin">Host Login</Link>
             </div>
           )}
 
@@ -124,10 +124,24 @@ const Navbar = () => {
               </Link>
             </div>
           )}
+          {dropdownMenu && host && (
+            <div className="navbar_right_accountmenu">
+              <Link to="/hostDashboard">Dashboard</Link>
+              <Link to="/create-listing">Become A Host</Link>
 
-          </div>
-          </div>
-          <LowerNavbar />
+              <Link
+                to="/"
+                onClick={() => {
+                  dispatch(setHostLogout());
+                }}
+              >
+                Log Out
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+      {/* <LowerNavbar /> */}
     </>
   );
 };

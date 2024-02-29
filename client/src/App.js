@@ -11,19 +11,27 @@ import PropertyList from "./pages/PropertyList";
 import ReservationList from "./pages/ReservationList";
 import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/SearchPage";
-import { productData } from "./temp/productData";
+import HostLogin from "./pages/host/HostLogin";
+import HostRegister from "./pages/host/HostRegister";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/hostRegister" element={<HostRegister />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/hostLogin" element={<HostLogin />} />
           <Route path="/create-listing" element={<CreateListing />} />
-          <Route path="/properties/:listingId" element={<ListingDetails {...productData}/>} />
-          <Route path="/properties/category/:category" element={<CategoryPage />} />
+          <Route path="/properties/:listingId" element={<ListingDetails />} />
+          <Route
+            path="/properties/category/:category"
+            element={<CategoryPage />}
+          />
           <Route path="/properties/search/:search" element={<SearchPage />} />
           <Route path="/:userId/trips" element={<TripList />} />
           <Route path="/:userId/wishList" element={<WishList />} />

@@ -28,7 +28,13 @@ import {
 } from "react-icons/bi";
 import { BsSnow, BsFillDoorOpenFill, BsPersonWorkspace } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
-import { MdOutlineVilla, MdMicrowave, MdBalcony, MdYard, MdPets } from "react-icons/md";
+import {
+  MdOutlineVilla,
+  MdMicrowave,
+  MdBalcony,
+  MdYard,
+  MdPets,
+} from "react-icons/md";
 import {
   PiBathtubFill,
   PiCoatHangerFill,
@@ -148,17 +154,17 @@ export const types = [
     icon: <FaHouseUser />,
   },
   {
-    name: "Room(s)",
+    name: "Rooms",
     description:
       "Guests have their own room in a house, plus access to shared places",
     icon: <BsFillDoorOpenFill />,
   },
-  {
-    name: "A Shared Room",
-    description:
-      "Guests sleep in a room or common area that maybe shared with you or others",
-    icon: <FaPeopleRoof />,
-  },
+  // {
+  //   name: "A Shared Room",
+  //   description:
+  //     "Guests sleep in a room or common area that maybe shared with you or others",
+  //   icon: <FaPeopleRoof />,
+  // },
 ];
 
 export const facilities = [
@@ -196,7 +202,7 @@ export const facilities = [
   },
   {
     name: "Dedicated workspace",
-    icon: <BsPersonWorkspace />
+    icon: <BsPersonWorkspace />,
   },
   {
     name: "Air Conditioning",
@@ -264,10 +270,10 @@ export const facilities = [
   },
   {
     name: "Self check-in",
-    icon: <FaKey />
+    icon: <FaKey />,
   },
   {
     name: " Pet allowed",
-    icon: <MdPets />
-  }
+    icon: <MdPets />,
+  },
 ];

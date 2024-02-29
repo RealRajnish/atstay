@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // import FacebookIcon from '@mui/icons-material/Facebook';
 import { Call, Facebook, Instagram } from "@mui/icons-material";
 
-export default function Navbar() {
+export default function UpperNavbar() {
   return (
     <div>
       <div className="nav">

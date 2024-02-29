@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../styles/Register.scss";
-import { API_2 } from "../api/api";
+import { Link, useNavigate } from "react-router-dom";
+import "../../styles/Register.scss";
+import { API_5 } from "../../api/api";
 
-const RegisterPage = () => {
+const HostRegister = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    profileImage: null,
+    contact: "",
   });
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-      [name]: name === "profileImage" ? files[0] : value,
     });
   };
 
@@ -42,10 +41,11 @@ const RegisterPage = () => {
       for (var key in formData) {
         register_form.append(key, formData[key]);
       }
-      console.log(register_form);
-      const response = await fetch(API_2, {
+      console.log(formData);
+
+      const response = await fetch(API_5, {
         method: "POST",
-        body: register_form,
+        body: formData,
       });
 
       if (response.ok) {
@@ -59,7 +59,7 @@ const RegisterPage = () => {
   return (
     <div className="register">
       <div className="register_content">
-        <div className="heading">Registration Page</div>
+        <div className="heading">Host Registration Page</div>
         <form className="register_content_form" onSubmit={handleSubmit}>
           <input
             placeholder="First Name"
@@ -104,7 +104,7 @@ const RegisterPage = () => {
             <p style={{ color: "red" }}>Passwords are not matched!</p>
           )}
 
-          <input
+          {/* <input
             id="image"
             type="file"
             name="profileImage"
@@ -112,8 +112,8 @@ const RegisterPage = () => {
             style={{ display: "none" }}
             onChange={handleChange}
             required
-          />
-          <label htmlFor="image">
+          /> */}
+          {/* <label htmlFor="image">
             <img src="/assets/addImage.png" alt="add profile photo" />
             <p>Upload Your Photo</p>
           </label>
@@ -124,15 +124,15 @@ const RegisterPage = () => {
               alt="profile photo"
               style={{ maxWidth: "80px" }}
             />
-          )}
+          )} */}
           <button type="submit" disabled={!passwordMatch}>
             REGISTER
           </button>
         </form>
-        <a href="/login">Already have an account? Log In Here</a>
+        <Link to="/hostLogin">Already have an account? Log In Here</Link>
       </div>
     </div>
   );
 };
 
-export default RegisterPage;
+export default HostRegister;

@@ -5,9 +5,7 @@ import ListingCard from "./ListingCard";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setListings } from "../redux/state";
-import { productData } from "../temp/productData";
-
-
+import { API_7 } from "../api/api";
 
 const Listings = () => {
   const dispatch = useDispatch();
@@ -19,7 +17,17 @@ const Listings = () => {
 
   const getFeedListings = async () => {
     try {
-      const data = productData
+      const response = await fetch(
+        selectedCategory !== "All"
+          ? `http://localhost:3001/properties?category=${selectedCategory}`
+          : API_7,
+        {
+          method: "GET",
+        }
+      );
+
+      const data = await response.json();
+      console.log("listingData", data);
       dispatch(setListings({ listings: data }));
       setLoading(false);
     } catch (err) {
@@ -30,13 +38,16 @@ const Listings = () => {
   useEffect(() => {
     getFeedListings();
   }, [selectedCategory]);
+  console.log("stored listing", listings);
 
   return (
     <>
       <div className="category-list">
         {categories?.map((category, index) => (
           <div
-            className={`category ${category.label === selectedCategory ? "selected" : ""}`}
+            className={`category ${
+              category.label === selectedCategory ? "selected" : ""
+            }`}
             key={index}
             onClick={() => setSelectedCategory(category.label)}
           >
@@ -53,19 +64,27 @@ const Listings = () => {
           {listings.map(
             ({
               _id,
-              photo,
-              place,
-              trip,
-              overview,
+              hotelId,
+              hostId,
+              creator,
+              listingPhotoPaths,
+              city,
+              province,
+              country,
+              category,
+              type,
               price,
-              booking=false
+              booking = false,
             }) => (
               <ListingCard
-                listingId={_id}
-                photo={photo}
-                city={place}
-                category={trip}
-                type={overview}
+                listingId={hotelId}
+                creator={hostId}
+                listingPhotoPaths={listingPhotoPaths}
+                city={city}
+                province={province}
+                country={country}
+                category={category}
+                type={type}
                 price={price}
                 booking={booking}
               />
