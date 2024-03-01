@@ -4,9 +4,14 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
   gap: 50px;
   padding: 10px 70px;
+  background-color: #d0eeea;
+
+  @include sm{
+    flex-direction: column;
+  }
 
   @include lg {
     padding: 10px 30px;
@@ -17,7 +22,7 @@
 
     img {
       max-width: 150px;
-      margin-bottom: 20px;
+      margin-bottom: -59px;
     }
 
     &_socials {
@@ -29,7 +34,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: $pinkred;
+        background-color: #7ee4d7;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,7 +57,7 @@
       cursor: pointer;
 
       li:hover {
-        color: $pinkred
+        color: #333232;
       }
 
       a {
@@ -60,13 +65,15 @@
         color: black;
 
         &:hover {
-          color: $pinkred;
+          cursor: pointer;
+          color: #333232;
         }
       }
     }
 
     @include md {
-      display: none;
+      // display: none;
+      // flex-direction: column;
     }
   }
 
@@ -87,7 +94,8 @@
     }
 
     @include sm {
-      display: none;
+      // display: none;
+      flex-direction: column;
     }
   }
 }

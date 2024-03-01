@@ -40,6 +40,9 @@ export const userSlice = createSlice({
     setHostLogin: (state, action) => {
       state.host = action.payload.host;
     },
+    setHostData: (state, action) => {
+      state.host = action.payload.host;
+    },
   },
 });
 
@@ -53,5 +56,6 @@ export const {
   setReservationList,
   setHostLogin,
   setHostLogout,
+  setHostData,
 } = userSlice.actions;
 export default userSlice.reducer;
