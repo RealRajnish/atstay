@@ -7,14 +7,20 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
+  gap: 3rem ;
 
   @include sm {
     padding: 10px 20px;
+    gap: 0rem;
+    flex-direction: column;
   }
 
   img {
     width: 100px;
     cursor: pointer;
+  }
+  @include sm{
+    margin-left: -4rem;
   }
 
   .links-container{
@@ -25,6 +31,7 @@
       display: flex;
       gap: 2rem;
       margin-left: 1rem;
+     
       li{
         list-style: none;
         font-size: 1.1rem;
@@ -36,6 +43,9 @@
     }
   }
 
+
+
+
   &_search {
     border: 1px solid $grey;
     border-radius: 30px;
@@ -44,7 +54,10 @@
     display: flex;
     gap: 100px !important;
     align-items: center;
-
+    @include sm {
+      gap: 0px !important;
+      margin-left: 8%;
+    }
     input {
       border: none;
       outline: none;
@@ -64,6 +77,7 @@
     align-items: center;
     gap: 20px;
 
+   
     .host {
       text-decoration: none;
       color: black;
@@ -98,7 +112,11 @@
       img {
         width: 40px;
         height: 40px;
+        @include sm {
+          display: none;
+        }
       }
+
     }
 
     &_accountmenu {
@@ -114,9 +132,10 @@
       border-radius: 20px;
       @include shadow;
       z-index: 9999;
-
+     
       @include sm {
-        right: 20px;
+        right: 6px !important;
+        top: 193px !important;
       }
 
       a {
@@ -134,7 +153,6 @@
     }
   }
 }
-
 
 
 

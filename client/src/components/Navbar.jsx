@@ -1,13 +1,14 @@
 import { IconButton } from "@mui/material";
 import { Search, Person, Menu } from "@mui/icons-material";
 import variables from "../styles/variables.scss";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/Navbar.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { setLogout } from "../redux/state";
 import UpperNavbar from "./UpperNavbar";
 import LowerNavbar from "./LowerNavbar";
+
 
 const Navbar = () => {
   const [dropdownMenu, setDropdownMenu] = useState(false);
@@ -20,10 +21,11 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
+
   return (
     <>
       <UpperNavbar />
-      <div className="navbar" style={{ gap: "3rem" }}>
+      <div className="navbar">
         <a href="/">
           <img src="/assets/logo.webp" alt="logo" />
         </a>
@@ -51,7 +53,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-
+        <div style={{display:"flex", gap:"2rem"}}>
         <div className="navbar_search">
           <input
             type="text"
@@ -124,8 +126,9 @@ const Navbar = () => {
               </Link>
             </div>
           )}
-
+      
           </div>
+        </div>
           </div>
           <LowerNavbar />
     </>

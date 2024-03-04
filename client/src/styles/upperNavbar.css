@@ -134,7 +134,7 @@ a{
 
 @media(max-width:550px){
     .calls{
-        display:none!important;
+        /* display:none!important; */
     }
 }
 

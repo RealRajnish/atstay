@@ -19,11 +19,11 @@ const Footer = () => {
           <ul>
             <li>
               {" "}
-              <a to="https://www.facebook.com/atraskitravel?mibextid=nW3QTL">
+              <a href="https://m.facebook.com/story.php/?story_fbid=719437636867766&id=100064046080035">
                 {" "}
                 <FaSquareFacebook style={{ fontSize: "2.3rem" }} />
               </a>
-              <a to="https://www.instagram.com/atstaysbyatraski/?igshid=MzRlODBiNWFlZA%3D%3D">
+              <a href="https://www.instagram.com/atstaybyatraski?igsh=N2hodnQzdXkzd3E5">
                 {" "}
                 <FaInstagramSquare style={{ fontSize: "2.3rem" }} />
               </a>

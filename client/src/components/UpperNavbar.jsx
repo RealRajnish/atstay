@@ -22,7 +22,6 @@ export default function Navbar() {
             >
               <Instagram style={{ fontSize: "1.5rem", color: "white" }} />
             </Link>
-            {/* <span className="mx-3 emm" style={{color:"white"}}> <a style={{ color:"white"}} href="mailto:support@attravels.in">support@attravels.in</a></span> */}
           </div>
 
           <div className="navtopright">
@@ -46,8 +45,6 @@ export default function Navbar() {
                 <p style={{ fontSize: "15px" }}>Call Now</p>
               </a>
             </span>
-            {/* <Link  to ="/signin"><span className="mx-3 log" style={{color:"white"}}>Login</span></Link>
-               <Link to ="/signup"> <span className="mx-3 sig" style={{color:"white"}}>Signup</span></Link> */}
           </div>
         </div>
 
@@ -95,7 +92,6 @@ export default function Navbar() {
       </div>
     </nav> */}
       </div>
-      {/* <AnyWhere /> */}
     </div>
   );
 }
